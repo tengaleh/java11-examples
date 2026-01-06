@@ -1,0 +1,30 @@
+pipeline{
+    agent any
+    parameters {
+  choice choices: ['trainer', 'trainee'], name: 'role'
+  }
+    stages{
+        stage('one'){
+            steps {
+            sh 'echo trainer and trainee can run'
+            }
+        }
+		stage('two'){
+        steps {
+            sh 'echo trainer and trainne can run'
+			}
+		}
+		stage('three'){
+        when {environment name: 'role', value: 'trainer'}
+        steps {
+            sh 'echo only trainer will run'
+			}
+		}
+		}
+    post {
+		always {
+		sh 'echo code is executed'
+		}
+		}
+
+}

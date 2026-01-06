@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    parameters {
+  choice choices: ['Dev', 'PET', 'Prod'], name: 'Env'
+}
+    stages{
+        stage('Clone'){
+            steps{
+            sh 'echo Cloneing..'
+            sh 'echo Cloneing done'
+            }
+        }
+        stage('build'){
+            steps{
+            sh 'echo Building...'
+            sh 'echo Building done'
+            }
+        }
+        stage('Deploy'){
+            when { 
+                environment name: 'env', value: 'Prod'
+                }
+            steps{
+            sh 'echo Deploying to Production...'
+            sh 'echo Deploying to Production is completed'
+            }
+        }
+    }
+}

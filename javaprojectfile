@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage('clonestage'){
+            steps {
+                git 'https://github.com/amitopenwriteup/java11-examples.git'
+            }
+        }
+        stage('buildpackage'){
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage ('release'){
+            steps {
+                archive 'target/*.jar'
+            }
+        }
+    }
+}
